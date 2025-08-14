@@ -1,17 +1,20 @@
-function alterarStatus(id) { // Função para alternar entre "alugado" e "disponível" para um jogo
-  const item = document.getElementById(`game-${id}`); // Seleciona o <li> do jogo pelo id
-  const imagem = item.querySelector('.dashboard__item__img'); // Seleciona a div que contém a imagem do jogo
-  const botao = item.querySelector('.dashboard__item__button'); // Seleciona o botão de ação do jogo
+function alterarStatus(id) {
+    let gameClicado = document.getElementById(`game-${id}`);
+    let imagem = gameClicado.querySelector('.dashboard__item__img');
+    let botao = gameClicado.querySelector('.dashboard__item__button');
+    let qtdJogosAlugados = document.querySelectorAll('.dashboard__item__img--rented');
+    console.log(qtdJogosAlugados.length + 1);
 
-  const estaAlugado = imagem.classList.contains('dashboard__item__img--rented'); // Verifica se a imagem já está com a classe que indica "alugado"
 
-  if (estaAlugado) {
-    imagem.classList.remove('dashboard__item__img--rented'); // Remove a classe de imagem opaca (volta para "disponível")
-    botao.textContent = 'Alugar'; // Define o texto do botão como "Alugar"
-    botao.classList.remove('dashboard__item__button--return'); // Remove a classe que estiliza o botão como "Devolver"
-  } else {
-    imagem.classList.add('dashboard__item__img--rented'); // Adiciona a classe de imagem opaca (marca como "alugado")
-    botao.textContent = 'Devolver'; // Define o texto do botão como "Devolver"
-    botao.classList.add('dashboard__item__button--return'); // Adiciona a classe que estiliza o botão como "Devolver"
-  }
+    if (imagem.classList.contains('dashboard__item__img--rented')) {
+        let resposta = confirm('Tem certeza que quer continuar?');
+        if (!resposta) return;
+        imagem.classList.remove('dashboard__item__img--rented');
+        botao.classList.remove('dashboard__item__button--return');
+        botao.textContent = 'Alugar';
+    } else {
+        imagem.classList.add('dashboard__item__img--rented');
+        botao.classList.add('dashboard__item__button--return');
+        botao.textContent = 'Devolver';
+    }
 }
